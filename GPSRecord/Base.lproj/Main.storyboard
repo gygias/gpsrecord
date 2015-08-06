@@ -188,18 +188,30 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="bKt-bV-SLd">
-                                <rect key="frame" x="16" y="30" width="568" height="540"/>
+                                <rect key="frame" x="16" y="50" width="568" height="500"/>
                                 <connections>
                                     <outlet property="delegate" destination="bkX-Ik-xXG" id="omy-9R-Kr4"/>
                                 </connections>
                             </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RZO-ze-kmU">
+                                <rect key="frame" x="16" y="12" width="30" height="30"/>
+                                <state key="normal" title="&lt;&lt;">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="BYZ-38-t0r" kind="show" id="Hyk-Hh-9K3"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="j8L-mQ-WsY" firstAttribute="top" secondItem="bKt-bV-SLd" secondAttribute="bottom" constant="30" id="BmA-AR-04u"/>
+                            <constraint firstItem="RZO-ze-kmU" firstAttribute="leading" secondItem="bKt-bV-SLd" secondAttribute="leading" id="4SY-f3-QxG"/>
+                            <constraint firstItem="j8L-mQ-WsY" firstAttribute="top" secondItem="bKt-bV-SLd" secondAttribute="bottom" constant="50" id="BmA-AR-04u"/>
                             <constraint firstAttribute="trailingMargin" secondItem="bKt-bV-SLd" secondAttribute="trailing" id="G7G-sg-0Ft"/>
-                            <constraint firstItem="bKt-bV-SLd" firstAttribute="top" secondItem="8a4-x4-6s6" secondAttribute="topMargin" constant="30" id="HsK-RT-VPr"/>
+                            <constraint firstItem="bKt-bV-SLd" firstAttribute="top" secondItem="8a4-x4-6s6" secondAttribute="topMargin" constant="50" id="HsK-RT-VPr"/>
                             <constraint firstItem="bKt-bV-SLd" firstAttribute="leading" secondItem="8a4-x4-6s6" secondAttribute="leadingMargin" id="bj6-8X-DWf"/>
+                            <constraint firstItem="RZO-ze-kmU" firstAttribute="leading" secondItem="8a4-x4-6s6" secondAttribute="leadingMargin" id="qJ7-qv-Zwn"/>
+                            <constraint firstItem="RZO-ze-kmU" firstAttribute="top" secondItem="dSV-Tl-tEP" secondAttribute="bottom" constant="-8" id="tUB-aJ-pls"/>
                         </constraints>
                     </view>
                     <connections>
