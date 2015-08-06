@@ -1,20 +1,21 @@
 //
-//  ViewController.m
+//  RecordViewController.m
 //  GPSRecord
 //
 //  Created by david on 8/5/15.
 //  Copyright (c) 2015 Combobulated Software. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "RecordViewController.h"
 
+#import "MapViewController.h"
 #import "State.h"
 
-@interface ViewController ()
+@interface RecordViewController ()
 
 @end
 
-@implementation ViewController
+@implementation RecordViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -66,6 +67,8 @@
         _state = NotRecording;
         [self _setButtonState:NO];
         [_locationManager stopUpdatingLocation];
+        [self _updateState];
+        //[State state].mapImage = [MapViewController mapImage];
     }
     
     // process _currentRecordingLocations
@@ -94,6 +97,9 @@
         NSIndexPath* ipath = [NSIndexPath indexPathForRow: [_currentRecordingLocations[currentSections - 1] count] - 1 inSection: currentSections - 1];
         [self.tableView scrollToRowAtIndexPath: ipath atScrollPosition: UITableViewScrollPositionTop animated: YES];
     }
+    
+    [self _updateState];
+    [self.mapViewController update];
     //[_currentRecordingLocations addObjectsFromArray:locations];
     
 //    int idx = 0;
@@ -162,7 +168,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSLog(@"%s: %d",__PRETTY_FUNCTION__,(int)section);
+    //NSLog(@"%s: %d",__PRETTY_FUNCTION__,(int)section);
     if ( section < _currentRecordingLocations.count )
         return [_currentRecordingLocations[section] count];
     return 0;
@@ -173,7 +179,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"%s: %@",__PRETTY_FUNCTION__,indexPath);
+    //NSLog(@"%s: %@",__PRETTY_FUNCTION__,indexPath);
     NSUInteger section = [indexPath indexAtPosition:0];
     NSUInteger row = [indexPath indexAtPosition:1];
     CLLocation *location = [_currentRecordingLocations[section] objectAtIndex:row];
@@ -189,13 +195,13 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    NSLog(@"%s",__PRETTY_FUNCTION__);
+    //NSLog(@"%s",__PRETTY_FUNCTION__);
     return _currentRecordingLocations.count;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    NSLog(@"%s: %d",__PRETTY_FUNCTION__,(int)section);
+    //NSLog(@"%s: %d",__PRETTY_FUNCTION__,(int)section);
     if ( section == 0 )
         return @"start point";
     else if ( section == 1 )
@@ -246,7 +252,16 @@
     [mc addAttachmentData:coordinateData mimeType:@"application/x-plist" fileName:@"coords.plist"];
     
     NSUInteger idx = 0;
+    NSMutableArray *imagesToSend = [NSMutableArray new];
+    UIImage *mapImage = [self.mapViewController getImage];
+    if ( mapImage )
+    {
+        [State state].mapImage = mapImage;
+        [imagesToSend addObject:mapImage];
+    }
     for ( UIImage *image in _currentImages )
+        [imagesToSend addObject:image];
+    for ( UIImage *image in imagesToSend )
     {
         NSData *data = UIImageJPEGRepresentation(image,0.01);
         NSLog(@"image size: %d",(int)data.length);
@@ -280,15 +295,26 @@
     [self presentViewController:_imagePickerController animated:YES completion:NULL];
 }
 
-- (IBAction)mapButtonPressed:(id)sender
+- (IBAction)unwindToMain:(UIStoryboardSegue *)unwindSegue
+{
+    
+}
+
+- (void)_updateState
 {
     State *state = [State state];
-    state.startLocations = _currentRecordingLocations[StartPointState];
-    state.movingLocations = _currentRecordingLocations[MovingState];
-    state.endLocations = _currentRecordingLocations[EndPointState];
+    state.startLocations = _currentRecordingLocations.count > StartPointState ? _currentRecordingLocations[StartPointState] : nil;
+    state.movingLocations = _currentRecordingLocations.count > MovingState ? _currentRecordingLocations[MovingState] : nil;
+    state.endLocations = _currentRecordingLocations.count > EndPointState ? _currentRecordingLocations[EndPointState] : nil;
     state.images = _currentImages;
-    
-    [self performSegueWithIdentifier:@"map-view" sender:self];
+    [self.mapViewController update];
+}
+
+- (IBAction)mapButtonPressed:(id)sender
+{
+    [self _updateState];
+    [self performSegueWithIdentifier:@"map-view-push" sender:self];
+    //[self.navigationController pushViewController:<#(UIViewController *)#> animated:<#(BOOL)#>];
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info

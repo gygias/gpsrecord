@@ -12,7 +12,10 @@
 
 @interface MapViewController : UIViewController
 
-@property IBOutlet MKMapView *mapView;
+//+ (UIImage *)mapImage;
+- (UIImage *)getImage;
+- (void)update;
+
 @property MKPolyline *polyline;
 @property MKPolylineView *lineView;
 

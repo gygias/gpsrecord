@@ -2,13 +2,14 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Record View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="RecordViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -82,8 +83,8 @@
                                     <action selector="cancelButtonTouched:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dfB-wa-eKS"/>
                                 </connections>
                             </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="j4H-Ca-Ieu">
-                                <rect key="frame" x="36" y="48" width="528" height="456"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="20" sectionHeaderHeight="20" sectionFooterHeight="20" translatesAutoresizingMaskIntoConstraints="NO" id="j4H-Ca-Ieu">
+                                <rect key="frame" x="36" y="48" width="528" height="9"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="378" id="e4T-vn-LCu"/>
@@ -109,7 +110,7 @@
                                     <action selector="pictureButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zBq-yp-ahj"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y5h-cQ-Bu4">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y5h-cQ-Bu4">
                                 <rect key="frame" x="533" y="16" width="31" height="30"/>
                                 <state key="normal" title="map">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -118,6 +119,9 @@
                                     <action selector="mapButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Zb6-Yi-h1i"/>
                                 </connections>
                             </button>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" rotateEnabled="NO" pitchEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pOM-5M-UGk">
+                                <rect key="frame" x="36" y="65" width="528" height="439"/>
+                            </mapView>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s6b-kk-lVW">
                                 <rect key="frame" x="306" y="550" width="34" height="30"/>
                                 <state key="normal" title="send">
@@ -134,6 +138,8 @@
                             <constraint firstItem="Y5h-cQ-Bu4" firstAttribute="centerY" secondItem="NTq-JH-i4P" secondAttribute="centerY" constant="0.75" id="71L-iZ-nhh"/>
                             <constraint firstItem="NTq-JH-i4P" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="7uH-tM-JUS"/>
                             <constraint firstItem="NTq-JH-i4P" firstAttribute="leading" secondItem="OM6-dY-G5S" secondAttribute="leading" id="8BT-rw-sqe"/>
+                            <constraint firstItem="pOM-5M-UGk" firstAttribute="leading" secondItem="j4H-Ca-Ieu" secondAttribute="leading" id="8rJ-co-ZPb"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Y5h-cQ-Bu4" secondAttribute="trailing" constant="20" id="9J3-wX-JSj"/>
                             <constraint firstItem="NTq-JH-i4P" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="20" id="AMc-Iq-wBG"/>
                             <constraint firstItem="zYt-Cm-VJE" firstAttribute="centerY" secondItem="qxz-Jl-xZZ" secondAttribute="centerY" id="CmC-me-tSl"/>
                             <constraint firstItem="qxz-Jl-xZZ" firstAttribute="leading" secondItem="zYt-Cm-VJE" secondAttribute="trailing" constant="40" id="Dtu-8u-xFY"/>
@@ -142,18 +148,30 @@
                             <constraint firstItem="NTq-JH-i4P" firstAttribute="leading" secondItem="j4H-Ca-Ieu" secondAttribute="leading" id="JHF-Zg-qln"/>
                             <constraint firstItem="zYt-Cm-VJE" firstAttribute="centerY" secondItem="BnP-e4-lEe" secondAttribute="centerY" id="KnC-Kg-yiI"/>
                             <constraint firstItem="BnP-e4-lEe" firstAttribute="centerY" secondItem="b7c-wy-rZ3" secondAttribute="centerY" id="KyH-Vr-TOh"/>
+                            <constraint firstItem="Y5h-cQ-Bu4" firstAttribute="trailing" secondItem="j4H-Ca-Ieu" secondAttribute="trailing" id="Mfm-Yc-t3e"/>
                             <constraint firstItem="BnP-e4-lEe" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="10" id="Oz9-wi-LoJ"/>
                             <constraint firstItem="BnP-e4-lEe" firstAttribute="top" secondItem="OM6-dY-G5S" secondAttribute="bottom" constant="8" id="RAw-uh-KNT"/>
                             <constraint firstItem="zYt-Cm-VJE" firstAttribute="leading" secondItem="b7c-wy-rZ3" secondAttribute="trailing" constant="40" id="VS0-uV-iTH"/>
                             <constraint firstAttribute="trailingMargin" secondItem="j4H-Ca-Ieu" secondAttribute="trailing" constant="20" id="a9g-Uy-5u1"/>
                             <constraint firstItem="s6b-kk-lVW" firstAttribute="leading" secondItem="qxz-Jl-xZZ" secondAttribute="trailing" constant="40" id="dE7-7a-dJv"/>
+                            <constraint firstItem="pOM-5M-UGk" firstAttribute="trailing" secondItem="j4H-Ca-Ieu" secondAttribute="trailing" id="hU4-gI-eBS"/>
+                            <constraint firstItem="j4H-Ca-Ieu" firstAttribute="width" secondItem="pOM-5M-UGk" secondAttribute="height" multiplier="95:79" id="iNu-Ke-RqU"/>
                             <constraint firstItem="qxz-Jl-xZZ" firstAttribute="centerY" secondItem="s6b-kk-lVW" secondAttribute="centerY" id="ium-Ea-QKc"/>
+                            <constraint firstItem="OM6-dY-G5S" firstAttribute="top" secondItem="pOM-5M-UGk" secondAttribute="bottom" constant="8" id="jM2-Xh-bky"/>
                             <constraint firstItem="j4H-Ca-Ieu" firstAttribute="top" secondItem="NTq-JH-i4P" secondAttribute="bottom" constant="8" id="lAb-KS-bwh"/>
                             <constraint firstItem="Y5h-cQ-Bu4" firstAttribute="trailing" secondItem="j4H-Ca-Ieu" secondAttribute="trailing" id="n1T-gX-EB6"/>
+                            <constraint firstItem="pOM-5M-UGk" firstAttribute="leading" secondItem="NTq-JH-i4P" secondAttribute="leading" id="odM-RY-6qQ"/>
+                            <constraint firstItem="pOM-5M-UGk" firstAttribute="trailing" secondItem="Y5h-cQ-Bu4" secondAttribute="trailing" id="wM6-jl-Zz1"/>
+                            <constraint firstItem="pOM-5M-UGk" firstAttribute="top" secondItem="j4H-Ca-Ieu" secondAttribute="bottom" constant="8" id="ymY-1S-v5E"/>
                             <constraint firstItem="OM6-dY-G5S" firstAttribute="top" secondItem="j4H-Ca-Ieu" secondAttribute="bottom" constant="8" id="yx8-vf-D92"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="a9g-Uy-5u1"/>
+                                <exclude reference="8rJ-co-ZPb"/>
+                                <exclude reference="hU4-gI-eBS"/>
+                                <exclude reference="yx8-vf-D92"/>
+                                <exclude reference="n1T-gX-EB6"/>
                                 <exclude reference="10x-1B-1QJ"/>
                             </mask>
                         </variation>
@@ -162,6 +180,7 @@
                         <outlet property="cancelButton" destination="zYt-Cm-VJE" id="PPW-JO-1QB"/>
                         <outlet property="emailButton" destination="s6b-kk-lVW" id="23U-RS-Gvl"/>
                         <outlet property="mapButton" destination="Y5h-cQ-Bu4" id="OFz-f6-QdB"/>
+                        <outlet property="mapViewController" destination="zhB-KR-tbf" id="pqZ-70-n8t"/>
                         <outlet property="nextButton" destination="b7c-wy-rZ3" id="N5M-75-gbr"/>
                         <outlet property="pictureButton" destination="qxz-Jl-xZZ" id="BP0-JH-gv5"/>
                         <outlet property="recordButton" destination="BnP-e4-lEe" id="2Op-oD-E7R"/>
@@ -169,11 +188,17 @@
                         <outlet property="recordingView" destination="OM6-dY-G5S" id="bR8-MY-h7D"/>
                         <outlet property="tableView" destination="j4H-Ca-Ieu" id="P9z-tJ-wrv"/>
                         <outlet property="view" destination="8bC-Xf-vdC" id="5UP-Sv-4hT"/>
-                        <segue destination="bkX-Ik-xXG" kind="show" identifier="map-view" id="QQI-GD-SZk"/>
+                        <segue destination="bkX-Ik-xXG" kind="show" identifier="map-view-push" id="QQI-GD-SZk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <customObject id="zhB-KR-tbf" customClass="MapViewController">
+                    <connections>
+                        <outlet property="view" destination="pOM-5M-UGk" id="tKy-yD-dxn"/>
+                    </connections>
+                </customObject>
             </objects>
+            <point key="canvasLocation" x="173" y="307"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="8ES-NC-zxl">
@@ -194,12 +219,13 @@
                                 </connections>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RZO-ze-kmU">
-                                <rect key="frame" x="16" y="12" width="30" height="30"/>
+                                <rect key="frame" x="16" y="20" width="30" height="20"/>
                                 <state key="normal" title="&lt;&lt;">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="BYZ-38-t0r" kind="show" id="Hyk-Hh-9K3"/>
+                                    <action selector="backPressed:" destination="bkX-Ik-xXG" eventType="touchUpInside" id="ieR-qc-ld6"/>
+                                    <segue destination="cnb-qG-ucj" kind="unwind" unwindAction="unwindToMain:" id="urr-H9-feU"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -210,8 +236,9 @@
                             <constraint firstAttribute="trailingMargin" secondItem="bKt-bV-SLd" secondAttribute="trailing" id="G7G-sg-0Ft"/>
                             <constraint firstItem="bKt-bV-SLd" firstAttribute="top" secondItem="8a4-x4-6s6" secondAttribute="topMargin" constant="50" id="HsK-RT-VPr"/>
                             <constraint firstItem="bKt-bV-SLd" firstAttribute="leading" secondItem="8a4-x4-6s6" secondAttribute="leadingMargin" id="bj6-8X-DWf"/>
+                            <constraint firstItem="bKt-bV-SLd" firstAttribute="top" secondItem="RZO-ze-kmU" secondAttribute="bottom" constant="10" id="mhq-b4-J1k"/>
                             <constraint firstItem="RZO-ze-kmU" firstAttribute="leading" secondItem="8a4-x4-6s6" secondAttribute="leadingMargin" id="qJ7-qv-Zwn"/>
-                            <constraint firstItem="RZO-ze-kmU" firstAttribute="top" secondItem="dSV-Tl-tEP" secondAttribute="bottom" constant="-8" id="tUB-aJ-pls"/>
+                            <constraint firstItem="RZO-ze-kmU" firstAttribute="top" secondItem="dSV-Tl-tEP" secondAttribute="bottom" id="tUB-aJ-pls"/>
                         </constraints>
                     </view>
                     <connections>
@@ -220,6 +247,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0YX-4E-twQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="cnb-qG-ucj" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="947" y="307"/>
         </scene>

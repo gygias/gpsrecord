@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Combobulated Software. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface State : NSObject
 
@@ -16,5 +16,6 @@
 @property NSArray *movingLocations;
 @property NSArray *endLocations;
 @property NSArray *images;
+@property UIImage *mapImage;
 
 @end

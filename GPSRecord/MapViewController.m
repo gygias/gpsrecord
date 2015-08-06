@@ -26,52 +26,141 @@
     // Dispose of any resources that can be recreated.
 }
 
+//+ (UIImage *)mapImage
+//{
+//    MapViewController *vc = [MapViewController new];
+//    CGRect frame = CGRectMake(0,0,400,400);
+//    vc.mapView = [[MKMapView alloc] initWithFrame:frame];
+//    vc.mapView.bounds = frame;
+//    [vc _centerView];
+//    [vc _drawPath];
+//    [vc.mapView drawRect:frame];
+//    //[vc.mapView drawLayer: inContext:]
+//    return [vc getImage];
+//}
+
 - (void)viewWillAppear:(BOOL)animated
 {
-    if ( ! [State state].startLocations )
-    {
-        [self _initStateFromTestData];
-    }
+//    if ( ! [State state].startLocations )
+//    {
+//        [self _initStateFromTestData];
+//    }
+    
+    [self update];
+}
+
+- (void)update
+{
+    //NSLog(@"updating...");
+    [self _arrangeView];
+    [self.view setNeedsDisplay];
+}
+
+- (IBAction)backPressed:(id)sender
+{
+    [State state].mapImage = [self getImage];
+}
+
+- (UIImage *)getImage
+{
+    UIGraphicsBeginImageContextWithOptions(self.view.bounds.size, self.view.opaque, 0.0);
+    [self.view.layer renderInContext:UIGraphicsGetCurrentContext()];
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    return image;
+}
+
+- (void)_arrangeView
+{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        ((MKMapView *)self.view).delegate = self;
+    });
+    
+    BOOL hasStart = [State state].startLocations.count > 0;
+    
+    if ( ! hasStart )
+        return;
+    
+    BOOL hasEnd = [State state].endLocations.count > 0;
+    BOOL hasMiddle = [State state].movingLocations.count > 0;
     
     float spanX;// = 0.00725;
     float spanY;// = 0.00725;
     CLLocationCoordinate2D center;
-    [self _center:&center spanX:&spanX spanY:&spanY];
+    //[self _center:&center spanX:&spanX spanY:&spanY];
+    
+    CLLocationCoordinate2D start = ((CLLocation *)[State state].startLocations.lastObject).coordinate;
+    CLLocationCoordinate2D end = hasEnd ? ((CLLocation *)[State state].endLocations.lastObject).coordinate : start;
+    center.latitude = ( start.latitude + end.latitude ) / 2;
+    center.longitude = ( start.longitude + end.longitude ) / 2;
+    
+    if ( hasMiddle )
+    {
+        CLLocationDegrees minLat = NAN, maxLat = NAN;
+        CLLocationDegrees minLon = NAN, maxLon = NAN;
+        BOOL first = YES;
+        for ( CLLocation *location in [State state].movingLocations ) {
+            if ( location.coordinate.latitude < minLat || first )
+                minLat = location.coordinate.latitude;
+            if ( location.coordinate.latitude > maxLat || first )
+                maxLat = location.coordinate.latitude;
+            if ( location.coordinate.longitude < minLon || first )
+                minLon = location.coordinate.longitude;
+            if ( location.coordinate.longitude > maxLon || first )
+                maxLon = location.coordinate.longitude;
+            first = NO;
+        }
+        
+        spanX = maxLat - minLat;
+        spanY = maxLon - minLon;
+    }
+    else
+    {
+        spanX = 0.005;
+        spanY = 0.005;
+    }
+    
     MKCoordinateRegion region;
     region.center.latitude = center.latitude;//self.mapView.userLocation.coordinate.latitude;
     region.center.longitude = center.longitude;//self.mapView.userLocation.coordinate.longitude;
     region.span.latitudeDelta = spanX;
     region.span.longitudeDelta = spanY;
-    [self.mapView setRegion:region animated:NO];
     
-    [self _drawPath];
-}
-
-- (void)_drawPath {
+    [(MKMapView *)self.view setRegion:region animated:NO];
     
     // remove polyline if one exists
-    [self.mapView removeOverlay:self.polyline];
+    [(MKMapView *)self.view removeOverlay:self.polyline];
     
     // create an array of coordinates from allPins
-    unsigned long size = [State state].movingLocations.count + 2;
+    unsigned long size = [State state].movingLocations.count +
+                                    ( hasStart ? 1 : 0 ) +
+                                    ( hasEnd ? 1 : 0 );
     CLLocationCoordinate2D coordinates[size];
+
     coordinates[0] = ((CLLocation *)[State state].startLocations.lastObject).coordinate;
-    coordinates[size - 1] = ((CLLocation *)[State state].endLocations.lastObject).coordinate;
-    int i = 0;
-    for ( ; i + 1 < [State state].movingLocations.count + 1; i++ ) {
-        coordinates[i + 1] = ((CLLocation *)[State state].movingLocations[i]).coordinate;
+    if ( hasMiddle )
+    {
+        int i = 0;
+        for ( ; i + 1 < [State state].movingLocations.count + 1; i++ ) {
+            coordinates[i + 1] = ((CLLocation *)[State state].movingLocations[i]).coordinate;
+        }
     }
+    if ( hasEnd )
+        coordinates[size - 1] = ((CLLocation *)[State state].endLocations.lastObject).coordinate;
     
     // create a polyline with all cooridnates
     MKPolyline *polyline = [MKPolyline polylineWithCoordinates:coordinates count:size];
-    [self.mapView addOverlay:polyline];
+    [(MKMapView *)self.view addOverlay:polyline];
     self.polyline = polyline;
     
     // create an MKPolylineView and add it to the map view
     self.lineView = [[MKPolylineView alloc] initWithPolyline:self.polyline];
     self.lineView.strokeColor = [UIColor redColor];
     self.lineView.lineWidth = 5;
-    
 }
 
 - (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id<MKOverlay>)overlay {
@@ -81,28 +170,7 @@
 
 - (void)_center:(CLLocationCoordinate2D *)outCenter spanX:(float *)outSpanX spanY:(float *)outSpanY
 {
-    CLLocationCoordinate2D start = ((CLLocation *)[State state].startLocations.lastObject).coordinate;
-    CLLocationCoordinate2D end = ((CLLocation *)[State state].endLocations.lastObject).coordinate;
-    (*outCenter).latitude = ( start.latitude + end.latitude ) / 2;
-    (*outCenter).longitude = (start.longitude + end.longitude ) / 2;
     
-    CLLocationDegrees minLat = NAN, maxLat = NAN;
-    CLLocationDegrees minLon = NAN, maxLon = NAN;
-    BOOL first = YES;
-    for ( CLLocation *location in [State state].movingLocations ) {
-        if ( location.coordinate.latitude < minLat || first )
-            minLat = location.coordinate.latitude;
-        if ( location.coordinate.latitude > maxLat || first )
-            maxLat = location.coordinate.latitude;
-        if ( location.coordinate.longitude < minLon || first )
-            minLon = location.coordinate.longitude;
-        if ( location.coordinate.longitude > maxLon || first )
-            maxLon = location.coordinate.longitude;
-        first = NO;
-    }
-    
-    *outSpanX = maxLat - minLat;
-    *outSpanY = maxLon - minLon;
 }
 
 - (void)_initStateFromTestData

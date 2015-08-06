@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  RecordViewController.h
 //  GPSRecord
 //
 //  Created by david on 8/5/15.
@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+
+#import "MapViewController.h"
 
 #import <CoreLocation/CoreLocation.h>
 #import <MessageUI/MessageUI.h>
@@ -21,7 +23,7 @@ typedef NS_ENUM(NSInteger,RecordState)
     NotRecording,
 };
 
-@interface ViewController : UIViewController <CLLocationManagerDelegate,MFMailComposeViewControllerDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
+@interface RecordViewController : UIViewController <CLLocationManagerDelegate,MFMailComposeViewControllerDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
 {
     BOOL _recording;
     RecordState _state;
@@ -35,6 +37,8 @@ typedef NS_ENUM(NSInteger,RecordState)
 //@property IBOutlet UILabel *lastGPSLabel1;
 //@property IBOutlet UILabel *lastGPSLabel2;
 //@property IBOutlet UILabel *lastGPSLabel3;
+
+@property IBOutlet MapViewController *mapViewController;
 
 @property IBOutlet UITableView *tableView;
 
