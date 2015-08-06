@@ -14,6 +14,7 @@
 		633928281B72F0D9007B63A0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 633928271B72F0D9007B63A0 /* Images.xcassets */; };
 		6339282B1B72F0D9007B63A0 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 633928291B72F0D9007B63A0 /* LaunchScreen.xib */; };
 		633928371B72F0DA007B63A0 /* GPSRecordTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 633928361B72F0DA007B63A0 /* GPSRecordTests.m */; };
+		633928411B72F32F007B63A0 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 633928401B72F32F007B63A0 /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,7 @@
 		633928301B72F0DA007B63A0 /* GPSRecordTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GPSRecordTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		633928351B72F0DA007B63A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		633928361B72F0DA007B63A0 /* GPSRecordTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GPSRecordTests.m; sourceTree = "<group>"; };
+		633928401B72F32F007B63A0 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +49,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				633928411B72F32F007B63A0 /* CoreLocation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +66,7 @@
 		6339280E1B72F0D9007B63A0 = {
 			isa = PBXGroup;
 			children = (
+				633928401B72F32F007B63A0 /* CoreLocation.framework */,
 				633928191B72F0D9007B63A0 /* GPSRecord */,
 				633928331B72F0DA007B63A0 /* GPSRecordTests */,
 				633928181B72F0D9007B63A0 /* Products */,
