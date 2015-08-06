@@ -77,7 +77,7 @@
 {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        ((MKMapView *)self.view).delegate = self;
+        ((MKMapView *)self.view).delegate = (id<MKMapViewDelegate>)self;
     });
     
     BOOL hasStart = [State state].startLocations.count > 0;
