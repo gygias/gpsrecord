@@ -8,6 +8,8 @@
 
 #import "ViewController.h"
 
+#import "State.h"
+
 @interface ViewController ()
 
 @end
@@ -241,14 +243,14 @@
         return;
     }
     
-    [mc addAttachmentData:coordinateData mimeType:@"application/x-plist" fileName:@"coords"];
+    [mc addAttachmentData:coordinateData mimeType:@"application/x-plist" fileName:@"coords.plist"];
     
     NSUInteger idx = 0;
     for ( UIImage *image in _currentImages )
     {
         NSData *data = UIImageJPEGRepresentation(image,0.01);
         NSLog(@"image size: %d",(int)data.length);
-        [mc addAttachmentData:data mimeType:@"image/jpeg" fileName:[NSString stringWithFormat:@"image-%lu",(unsigned long)idx++]];
+        [mc addAttachmentData:data mimeType:@"image/jpeg" fileName:[NSString stringWithFormat:@"image-%lu.jpg",(unsigned long)idx++]];
     }
     
     [mc setToRecipients:toRecipents];
@@ -276,6 +278,17 @@
     _imagePickerController.mediaTypes = @[ (NSString *)kUTTypeImage ];
     
     [self presentViewController:_imagePickerController animated:YES completion:NULL];
+}
+
+- (IBAction)mapButtonPressed:(id)sender
+{
+    State *state = [State state];
+    state.startLocations = _currentRecordingLocations[StartPointState];
+    state.movingLocations = _currentRecordingLocations[MovingState];
+    state.endLocations = _currentRecordingLocations[EndPointState];
+    state.images = _currentImages;
+    
+    [self performSegueWithIdentifier:@"map-view" sender:self];
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info

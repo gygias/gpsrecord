@@ -41,6 +41,7 @@ typedef NS_ENUM(NSInteger,RecordState)
 @property IBOutlet UIView *recordingView;
 @property IBOutlet UILabel *recordingLabel;
 
+@property IBOutlet UIButton *mapButton;
 @property IBOutlet UIButton *recordButton;
 @property IBOutlet UIButton *nextButton;
 @property IBOutlet UIButton *cancelButton;

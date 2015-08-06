@@ -15,6 +15,10 @@
 		6339282B1B72F0D9007B63A0 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 633928291B72F0D9007B63A0 /* LaunchScreen.xib */; };
 		633928371B72F0DA007B63A0 /* GPSRecordTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 633928361B72F0DA007B63A0 /* GPSRecordTests.m */; };
 		633928411B72F32F007B63A0 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 633928401B72F32F007B63A0 /* CoreLocation.framework */; };
+		633928441B732314007B63A0 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 633928431B732314007B63A0 /* MapViewController.m */; };
+		633928471B732360007B63A0 /* State.m in Sources */ = {isa = PBXBuildFile; fileRef = 633928461B732360007B63A0 /* State.m */; };
+		6339284A1B73276C007B63A0 /* coords.plist in Resources */ = {isa = PBXBuildFile; fileRef = 633928491B73276C007B63A0 /* coords.plist */; };
+		6339284C1B732A6D007B63A0 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6339284B1B732A6D007B63A0 /* MapKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +46,12 @@
 		633928351B72F0DA007B63A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		633928361B72F0DA007B63A0 /* GPSRecordTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GPSRecordTests.m; sourceTree = "<group>"; };
 		633928401B72F32F007B63A0 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		633928421B732314007B63A0 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
+		633928431B732314007B63A0 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
+		633928451B732360007B63A0 /* State.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = State.h; sourceTree = "<group>"; };
+		633928461B732360007B63A0 /* State.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = State.m; sourceTree = "<group>"; };
+		633928491B73276C007B63A0 /* coords.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = coords.plist; path = GPSRecord/coords.plist; sourceTree = "<group>"; };
+		6339284B1B732A6D007B63A0 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6339284C1B732A6D007B63A0 /* MapKit.framework in Frameworks */,
 				633928411B72F32F007B63A0 /* CoreLocation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -66,6 +77,8 @@
 		6339280E1B72F0D9007B63A0 = {
 			isa = PBXGroup;
 			children = (
+				6339284B1B732A6D007B63A0 /* MapKit.framework */,
+				633928481B732762007B63A0 /* Data */,
 				633928401B72F32F007B63A0 /* CoreLocation.framework */,
 				633928191B72F0D9007B63A0 /* GPSRecord */,
 				633928331B72F0DA007B63A0 /* GPSRecordTests */,
@@ -93,6 +106,10 @@
 				633928271B72F0D9007B63A0 /* Images.xcassets */,
 				633928291B72F0D9007B63A0 /* LaunchScreen.xib */,
 				6339281A1B72F0D9007B63A0 /* Supporting Files */,
+				633928421B732314007B63A0 /* MapViewController.h */,
+				633928431B732314007B63A0 /* MapViewController.m */,
+				633928451B732360007B63A0 /* State.h */,
+				633928461B732360007B63A0 /* State.m */,
 			);
 			path = GPSRecord;
 			sourceTree = "<group>";
@@ -121,6 +138,14 @@
 				633928351B72F0DA007B63A0 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		633928481B732762007B63A0 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				633928491B73276C007B63A0 /* coords.plist */,
+			);
+			name = Data;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -203,6 +228,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6339284A1B73276C007B63A0 /* coords.plist in Resources */,
 				633928261B72F0D9007B63A0 /* Main.storyboard in Resources */,
 				6339282B1B72F0D9007B63A0 /* LaunchScreen.xib in Resources */,
 				633928281B72F0D9007B63A0 /* Images.xcassets in Resources */,
@@ -224,8 +250,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				633928231B72F0D9007B63A0 /* ViewController.m in Sources */,
+				633928471B732360007B63A0 /* State.m in Sources */,
 				633928201B72F0D9007B63A0 /* AppDelegate.m in Sources */,
 				6339281D1B72F0D9007B63A0 /* main.m in Sources */,
+				633928441B732314007B63A0 /* MapViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

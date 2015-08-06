@@ -109,6 +109,15 @@
                                     <action selector="pictureButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zBq-yp-ahj"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y5h-cQ-Bu4">
+                                <rect key="frame" x="533" y="16" width="31" height="30"/>
+                                <state key="normal" title="map">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="mapButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Zb6-Yi-h1i"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s6b-kk-lVW">
                                 <rect key="frame" x="306" y="550" width="34" height="30"/>
                                 <state key="normal" title="send">
@@ -122,6 +131,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="BnP-e4-lEe" firstAttribute="leading" secondItem="NTq-JH-i4P" secondAttribute="leading" id="10x-1B-1QJ"/>
+                            <constraint firstItem="Y5h-cQ-Bu4" firstAttribute="centerY" secondItem="NTq-JH-i4P" secondAttribute="centerY" constant="0.75" id="71L-iZ-nhh"/>
                             <constraint firstItem="NTq-JH-i4P" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="7uH-tM-JUS"/>
                             <constraint firstItem="NTq-JH-i4P" firstAttribute="leading" secondItem="OM6-dY-G5S" secondAttribute="leading" id="8BT-rw-sqe"/>
                             <constraint firstItem="NTq-JH-i4P" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="20" id="AMc-Iq-wBG"/>
@@ -139,6 +149,7 @@
                             <constraint firstItem="s6b-kk-lVW" firstAttribute="leading" secondItem="qxz-Jl-xZZ" secondAttribute="trailing" constant="40" id="dE7-7a-dJv"/>
                             <constraint firstItem="qxz-Jl-xZZ" firstAttribute="centerY" secondItem="s6b-kk-lVW" secondAttribute="centerY" id="ium-Ea-QKc"/>
                             <constraint firstItem="j4H-Ca-Ieu" firstAttribute="top" secondItem="NTq-JH-i4P" secondAttribute="bottom" constant="8" id="lAb-KS-bwh"/>
+                            <constraint firstItem="Y5h-cQ-Bu4" firstAttribute="trailing" secondItem="j4H-Ca-Ieu" secondAttribute="trailing" id="n1T-gX-EB6"/>
                             <constraint firstItem="OM6-dY-G5S" firstAttribute="top" secondItem="j4H-Ca-Ieu" secondAttribute="bottom" constant="8" id="yx8-vf-D92"/>
                         </constraints>
                         <variation key="default">
@@ -150,6 +161,7 @@
                     <connections>
                         <outlet property="cancelButton" destination="zYt-Cm-VJE" id="PPW-JO-1QB"/>
                         <outlet property="emailButton" destination="s6b-kk-lVW" id="23U-RS-Gvl"/>
+                        <outlet property="mapButton" destination="Y5h-cQ-Bu4" id="OFz-f6-QdB"/>
                         <outlet property="nextButton" destination="b7c-wy-rZ3" id="N5M-75-gbr"/>
                         <outlet property="pictureButton" destination="qxz-Jl-xZZ" id="BP0-JH-gv5"/>
                         <outlet property="recordButton" destination="BnP-e4-lEe" id="2Op-oD-E7R"/>
@@ -157,10 +169,47 @@
                         <outlet property="recordingView" destination="OM6-dY-G5S" id="bR8-MY-h7D"/>
                         <outlet property="tableView" destination="j4H-Ca-Ieu" id="P9z-tJ-wrv"/>
                         <outlet property="view" destination="8bC-Xf-vdC" id="5UP-Sv-4hT"/>
+                        <segue destination="bkX-Ik-xXG" kind="show" identifier="map-view" id="QQI-GD-SZk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+        </scene>
+        <!--Map View Controller-->
+        <scene sceneID="8ES-NC-zxl">
+            <objects>
+                <viewController id="bkX-Ik-xXG" customClass="MapViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="dSV-Tl-tEP"/>
+                        <viewControllerLayoutGuide type="bottom" id="j8L-mQ-WsY"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8a4-x4-6s6">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="bKt-bV-SLd">
+                                <rect key="frame" x="16" y="30" width="568" height="540"/>
+                                <connections>
+                                    <outlet property="delegate" destination="bkX-Ik-xXG" id="omy-9R-Kr4"/>
+                                </connections>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="j8L-mQ-WsY" firstAttribute="top" secondItem="bKt-bV-SLd" secondAttribute="bottom" constant="30" id="BmA-AR-04u"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="bKt-bV-SLd" secondAttribute="trailing" id="G7G-sg-0Ft"/>
+                            <constraint firstItem="bKt-bV-SLd" firstAttribute="top" secondItem="8a4-x4-6s6" secondAttribute="topMargin" constant="30" id="HsK-RT-VPr"/>
+                            <constraint firstItem="bKt-bV-SLd" firstAttribute="leading" secondItem="8a4-x4-6s6" secondAttribute="leadingMargin" id="bj6-8X-DWf"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="mapView" destination="bKt-bV-SLd" id="ndJ-rM-8V7"/>
+                        <outlet property="view" destination="8a4-x4-6s6" id="gyL-jA-OSE"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0YX-4E-twQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="947" y="307"/>
         </scene>
     </scenes>
 </document>
